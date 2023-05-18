@@ -2,7 +2,8 @@ name: run windfinder_script.py
 
 on:
   schedule:
-    - cron: '0 0 * * 1' # At 00:00 on Monday
+    # - cron: '0 0 * * 1' # At 00:00 on Monday
+    - cron: '15 11 * * *' # At 11:15
 
 jobs:
   build:
