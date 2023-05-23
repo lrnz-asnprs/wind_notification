@@ -89,7 +89,7 @@ def send_email_image(body: str):
     server.quit()
 
 # Return 3h windows, where wind is on average above X m/s
-threshold = 5
+threshold = 8
 min_hour = 10 # starts at 7:00 because of moving average
 max_hour = 20 # starts at 17:00 because of moving average
 
