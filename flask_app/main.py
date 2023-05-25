@@ -9,6 +9,7 @@ https://github.com/Faouzizi/Create_LoginPage
 from flask import Blueprint, render_template, flash
 from flask_login import login_required, current_user
 from __init__ import create_app, db
+from socket import gethostname
 
 ########################################################################################
 # our main blueprint
@@ -32,7 +33,8 @@ def unsubscribed():
     return render_template('user_deleted.html')
 
 app = create_app() # we initialize our flask app using the __init__.py function
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all() # create the SQLite database
-    app.run(debug=True) # run the flask app on debug mode
+    db.create_all()
+    if 'liveconsole' not in gethostname(): # setup for pythonanywhere
+        app.run()
