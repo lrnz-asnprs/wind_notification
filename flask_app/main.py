@@ -35,6 +35,12 @@ def unsubscribed():
 app = create_app() # we initialize our flask app using the __init__.py function
 
 if __name__ == '__main__':
-    db.create_all()
-    if 'liveconsole' not in gethostname(): # setup for pythonanywhere
-        app.run()
+    with app.app_context():
+        db.create_all() # create the SQLite database
+    app.run(debug=False) # debug = True if you want to run the flask app on debug mode
+
+
+# if __name__ == '__main__':
+#     db.create_all()
+#     if 'liveconsole' not in gethostname(): # setup for pythonanywhere
+#         app.run()
