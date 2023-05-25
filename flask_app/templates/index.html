@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .center {
+      margin: 0;
+      position: absolute;
+      top: 120%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+</style>
+<h1 class="title">
+    Hey fellow surfbuddy! <br>
+</h1>
+<h2 class="subtitle">
+    Do you want to receive wind notifications for your favorite spot? :)
+</h2>
+<div class="center">
+    <button class="button is-block is-info is-large" style="background-color: #ED7458;">Sign Up!</button>
+</div>
+{% endblock %}
+
+
+---------------Folder prject name
+               ├── __init__.py # setup your app
+               ├── main.py   # the non-auth routes for your app
+               ├── auth.py   # the auth routes for your app
+               ├── models.py # your user model
+               ├── db.sqlite # your database
+               └── templates
+                    ├── base.html     # contains common layout and links
+                    ├── index.html    # show the home page
+                    ├── login.html    # show the login form
+                    ├── profile.html  # show the profile page
+                    └── signup.html   # show the signup form

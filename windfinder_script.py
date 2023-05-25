@@ -1,3 +1,5 @@
+# %%
+import app_config as config
 import requests
 import pandas as pd
 import smtplib
@@ -9,6 +11,16 @@ from email.mime.image import MIMEImage
 import logging
 import logging.handlers
 import os
+import sys
+
+# Connect to Database
+import sqlalchemy
+
+engine=sqlalchemy.create_engine(f'sqlite:///flask_app/instance/db.sqlite')
+#3.- Read data with pandas
+user_emails = pd.read_sql('select email from user',engine)
+recipients = user_emails['email'].tolist()
+
 
 # Logfile
 logger = logging.getLogger(__name__)
@@ -68,30 +80,31 @@ df['rolling_3h_average'] = df['windspeed'].rolling(window=3).mean().values
 
 subject = "SEEEEEEND IT!!!"
 sender = "windfinder2300@gmail.com"
-recipient = "la.aisenpreis@gmail.com"
+# recipient = "la.aisenpreis@gmail.com"
 password = "ntxjglvotfzgbkgb" # make this more secure
 
-def send_email_image(body: str):
+def send_email_image(body: str, recipients: list):
     
     with open('send_it.jpeg', 'rb') as f:
         image_part = MIMEImage(f.read())
     message = MIMEMultipart()
     message['Subject'] = subject
     message['From'] = sender
-    message['To'] = recipient
+    message['To'] = ', '.join(recipients)
     html_part = MIMEText(body)
     message.attach(html_part)
     message.attach(image_part)
 
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     server.login(sender, password)
-    server.sendmail(sender, recipient, message.as_string())
+    server.sendmail(sender, recipients, message.as_string())
     server.quit()
 
+
 # Return 3h windows, where wind is on average above X m/s
-threshold = 8
-min_hour = 10 # starts at 7:00 because of moving average
-max_hour = 20 # starts at 17:00 because of moving average
+threshold = config.script_config['threshold']
+min_hour = config.script_config['min_hour'] # starts at 7:00 because of moving average
+max_hour = config.script_config['max_hour'] # starts at 17:00 because of moving average
 
 results = df[(df['rolling_3h_average'] > threshold) & (df['hour'] >= min_hour) & (df['hour'] <= max_hour)]
 
@@ -110,7 +123,7 @@ for row in results.iterrows():
         email_body = f"It's GONNA GET WINDY! There will be an average windspeed of {avg_windspeed:.2f} m/s from {start_hour}:00 to {end_hour}:00 on {day}!"
         
         # Send email
-        send_email_image(body=email_body)
+        send_email_image(body=email_body, recipients=recipients)
 
         logger.info(f'Email sent. For forecast of average windspeed of {avg_windspeed:.2f} m/s from {start_hour}:00 to {end_hour}:00 on {day}.')
         # Don't send any more emails for this day
@@ -121,3 +134,5 @@ for row in results.iterrows():
 
 
 
+
+# %%

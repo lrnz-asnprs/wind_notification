@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask Auth Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="../static/css/style.css" /> 
+    <!-- Footer stylesheet -->
+</head>
+
+<body>
+<section class="hero is-fullheight" style="background-color:#A3C6C4;">
+    <div class="hero-head">
+        <nav class="navbar" style="background-color: #E0E7E9;">
+            <div class="container">
+
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-start">
+                        <a href="{{ url_for('main.index') }}" class="navbar-item">
+                            Home
+                        </a>
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                            Profile
+                        </a>
+                        {% endif %}
+                        <a href="{{ url_for('main.howto') }}" class="navbar-item">
+                            How does it work?
+                        </a>
+                        {% if not current_user.is_authenticated %}
+                        <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+                            Sign Up
+                        </a>
+                        <a href="{{ url_for('auth.unsubscribe') }}" class="navbar-item">
+                            Unsubscribe
+                        </a>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                            Logout
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</section>
+  <!-- Site footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <h6>About</h6>
+          <p class="text-justify">This site has been created as a fun side project. If you have any questions, just reach out to me!</p>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+          <h6>Quick Links</h6>
+          <ul class="footer-links">
+            <li><a href="https://https://lrnz-asnprs.github.io/">Contact Me</a></li>
+            <li><a href="http://wevalueyourprivacy.com/">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by 
+       <a href="#">Laurenz Aisenpreis</a>.
+          </p>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="social-icons">
+            <li><a class="website" href="https://https://lrnz-asnprs.github.io/"><i class="fa fa-facebook"></i></a></li>
+            <!-- <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>    -->
+          </ul>
+        </div>
+      </div>
+    </div>
+</footer>
+</body>
+
+</html>
