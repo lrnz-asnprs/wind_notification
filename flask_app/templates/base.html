@@ -8,45 +8,90 @@
     <title>Flask Auth Example</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
     <link rel="stylesheet" href="../static/css/style.css" /> 
+
+    <style>
+        .hamburger-items {
+          display: none;
+        }
+        .hamburger-items.show {
+          display: block;
+        }
+      </style>
     <!-- Footer stylesheet -->
 </head>
 
 <body>
 <section class="hero is-fullheight" style="background-color:#A3C6C4;">
     <div class="hero-head">
-        <nav class="navbar" style="background-color: #E0E7E9;">
-            <div class="container">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
 
-                <div id="navbarMenuHeroA" class="navbar-menu">
-                    <div class="navbar-start">
-                        <a href="{{ url_for('main.index') }}" class="navbar-item">
-                            Home
-                        </a>
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                            Profile
-                        </a>
-                        {% endif %}
-                        <a href="{{ url_for('main.howto') }}" class="navbar-item">
-                            How does it work?
-                        </a>
-                        {% if not current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.signup') }}" class="navbar-item">
-                            Sign Up
-                        </a>
-                        <a href="{{ url_for('auth.unsubscribe') }}" class="navbar-item">
-                            Unsubscribe
-                        </a>
-                        {% endif %}
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                            Logout
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
+              <a class="navbar-item" href="{{ url_for('main.index') }}">
+                <img src="static/send_png.png" width="60" height="60">
+              </a>
+              <!-- <div id="app">
+                <button @click="toggleHamburgerItems">Toggle Hamburger Menu</button>
+                <ul class="hamburger-items" :class="{ 'show': showHamburgerItems }">
+                    <li v-for="item in hamburgerItems" :key="item.id">{% raw %}{{ item.label }}{% endraw %}</li>
+                  </ul>                  
+              </div> -->
+              <div id="app">
+                <a id="hamburger" role="button" class="navbar-burger burger"
+                  :class="{ 'is-active': isHamburgerOpen }"
+                  @click="openHamburgerMenu"
+                  data-target="navMenu">
+                  <ul class="hamburger-items" :class="{ 'show': isHamburgerOpen }">
+                    <li v-for="item in hamburgerItems" :key="item.id">
+                       <a :href="item.url"> {% raw %}{{ item.label }}{% endraw %}</a>
+                    </li>
+                  </ul>  
+                  <span v-show="!isHamburgerOpen"></span>
+                  <span v-show="!isHamburgerOpen"></span>
+                </a>
+              </div>
+              
             </div>
-        </nav>
+          
+            <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': isHamburgerOpen }">
+
+                <div class="navbar-start">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                        Profile
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('main.howto') }}" class="navbar-item">
+                        How does it work?
+                    </a>
+                    {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+                        Sign Up
+                    </a>
+                    <a href="{{ url_for('auth.unsubscribe') }}" class="navbar-item">
+                        Unsubscribe
+                    </a>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                        Logout
+                    </a>
+                    {% endif %}
+                </div>
+          
+              <!-- <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <a class="button is-primary">
+                      <strong>Sign up</strong>
+                    </a>
+                    <a class="button is-light">
+                      Log in
+                    </a>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </nav>
     </div>
 
     <div class="hero-body">
@@ -54,43 +99,82 @@
             {% block content %}{% endblock %}
         </div>
     </div>
+    <div class="hero-foot">
+        <footer class="site-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <h6>About</h6>
+                <p class="text-justify">This site has been created as a fun side project. If you have any questions, just reach out to me!</p>
+              </div>
+        
+              <div class="col-xs-6 col-md-3">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                  <li><a href="https://https://lrnz-asnprs.github.io/">Contact Me</a></li>
+                  <li><a href="http://wevalueyourprivacy.com/">Privacy Policy</a></li>
+                </ul>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by 
+             <a href="#">Laurenz Aisenpreis</a>.
+                </p>
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                <ul class="social-icons">
+                  <li><a class="website" href="https://https://lrnz-asnprs.github.io/"><i class="fa fa-facebook"></i></a></li>
+                  <!-- <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>    -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+    </div>
 </section>
-  <!-- Site footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-6">
-          <h6>About</h6>
-          <p class="text-justify">This site has been created as a fun side project. If you have any questions, just reach out to me!</p>
-        </div>
-
-        <div class="col-xs-6 col-md-3">
-          <h6>Quick Links</h6>
-          <ul class="footer-links">
-            <li><a href="https://https://lrnz-asnprs.github.io/">Contact Me</a></li>
-            <li><a href="http://wevalueyourprivacy.com/">Privacy Policy</a></li>
-          </ul>
-        </div>
-      </div>
-      <hr>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-sm-6 col-xs-12">
-          <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by 
-       <a href="#">Laurenz Aisenpreis</a>.
-          </p>
-        </div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <ul class="social-icons">
-            <li><a class="website" href="https://https://lrnz-asnprs.github.io/"><i class="fa fa-facebook"></i></a></li>
-            <!-- <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>    -->
-          </ul>
-        </div>
-      </div>
-    </div>
-</footer>
+<!-- Use vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+<script>
+    //  new Vue({
+    //   el: '#app',
+    //   data() {
+    //     return {
+    //       showHamburgerItems: false,
+    //       hamburgerItems: [
+    //         { id: 1, label: 'Item 1' },
+    //         { id: 2, label: 'Item 2' },
+    //         { id: 3, label: 'Item 3' }
+    //       ]
+    //     };
+    //   },
+    //   methods: {
+    //     toggleHamburgerItems() {
+    //       this.showHamburgerItems = !this.showHamburgerItems;
+    //     }
+    //   }
+    // });
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          isHamburgerOpen: false,
+          hamburgerItems: [
+            { id: 1, label: 'How does it work?', url: "{{ url_for('main.howto') }}" },
+            { id: 2, label: 'Sign Up', url: "{{ url_for('auth.signup') }}" },
+            { id: 3, label: 'Unsubscribe', url: "{{ url_for('auth.unsubscribe') }}" }
+          ]
+        };
+      },
+      methods: {
+        openHamburgerMenu() {
+          this.isHamburgerOpen = !this.isHamburgerOpen;
+        },
+      },
+    });
+  </script>  
 </body>
-
 </html>
