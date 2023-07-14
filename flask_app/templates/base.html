@@ -8,90 +8,68 @@
     <title>Flask Auth Example</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
     <link rel="stylesheet" href="../static/css/style.css" /> 
-
-    <style>
-        .hamburger-items {
-          display: none;
-        }
-        .hamburger-items.show {
-          display: block;
-        }
-      </style>
-    <!-- Footer stylesheet -->
 </head>
 
 <body>
 <section class="hero is-fullheight" style="background-color:#A3C6C4;">
     <div class="hero-head">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-
-              <a class="navbar-item" href="{{ url_for('main.index') }}">
-                <img src="static/send_png.png" width="60" height="60">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <img src="../static/send_jpg.jpg" width="112" height="28">
+          </a>
+      
+          <a class="navbar-burger" id="burger" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
+        </div>
+      
+        <div class="navbar-menu" id="nav-links" >
+          <div class="navbar-start">
+            <a class="navbar-item" href="{{ url_for('main.index') }}">
+              Home
+            </a>
+      
+            <a class="navbar-item" href="{{ url_for('main.howto') }}">
+              How does it work?
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
               </a>
-              <!-- <div id="app">
-                <button @click="toggleHamburgerItems">Toggle Hamburger Menu</button>
-                <ul class="hamburger-items" :class="{ 'show': showHamburgerItems }">
-                    <li v-for="item in hamburgerItems" :key="item.id">{% raw %}{{ item.label }}{% endraw %}</li>
-                  </ul>                  
-              </div> -->
-              <div id="app">
-                <a id="hamburger" role="button" class="navbar-burger burger"
-                  :class="{ 'is-active': isHamburgerOpen }"
-                  @click="openHamburgerMenu"
-                  data-target="navMenu">
-                  <ul class="hamburger-items" :class="{ 'show': isHamburgerOpen }">
-                    <li v-for="item in hamburgerItems" :key="item.id">
-                       <a :href="item.url"> {% raw %}{{ item.label }}{% endraw %}</a>
-                    </li>
-                  </ul>  
-                  <span v-show="!isHamburgerOpen"></span>
-                  <span v-show="!isHamburgerOpen"></span>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  About
+                </a>
+                <a class="navbar-item">
+                  Contact
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item">
+                  Report an issue
                 </a>
               </div>
-              
             </div>
-          
-            <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': isHamburgerOpen }">
-
-                <div class="navbar-start">
-                    {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                        Profile
-                    </a>
-                    {% endif %}
-                    <a href="{{ url_for('main.howto') }}" class="navbar-item">
-                        How does it work?
-                    </a>
-                    {% if not current_user.is_authenticated %}
-                    <a href="{{ url_for('auth.signup') }}" class="navbar-item">
-                        Sign Up
-                    </a>
-                    <a href="{{ url_for('auth.unsubscribe') }}" class="navbar-item">
-                        Unsubscribe
-                    </a>
-                    {% endif %}
-                    {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                        Logout
-                    </a>
-                    {% endif %}
-                </div>
-          
-              <!-- <div class="navbar-end">
-                <div class="navbar-item">
-                  <div class="buttons">
-                    <a class="button is-primary">
-                      <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                      Log in
-                    </a>
-                  </div>
-                </div>
-              </div> -->
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" href="{{ url_for('auth.signup') }}" style="background-color: #ED7458;">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light" href="{{ url_for('auth.unsubscribe') }}">
+                   Unsubscribe
+                </a>
+              </div>
             </div>
-          </nav>
+          </div>
+        </div>
+      </nav>
     </div>
 
     <div class="hero-body">
@@ -136,45 +114,8 @@
         </footer>
     </div>
 </section>
-<!-- Use vue -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-<script>
-    //  new Vue({
-    //   el: '#app',
-    //   data() {
-    //     return {
-    //       showHamburgerItems: false,
-    //       hamburgerItems: [
-    //         { id: 1, label: 'Item 1' },
-    //         { id: 2, label: 'Item 2' },
-    //         { id: 3, label: 'Item 3' }
-    //       ]
-    //     };
-    //   },
-    //   methods: {
-    //     toggleHamburgerItems() {
-    //       this.showHamburgerItems = !this.showHamburgerItems;
-    //     }
-    //   }
-    // });
-    new Vue({
-      el: '#app',
-      data() {
-        return {
-          isHamburgerOpen: false,
-          hamburgerItems: [
-            { id: 1, label: 'How does it work?', url: "{{ url_for('main.howto') }}" },
-            { id: 2, label: 'Sign Up', url: "{{ url_for('auth.signup') }}" },
-            { id: 3, label: 'Unsubscribe', url: "{{ url_for('auth.unsubscribe') }}" }
-          ]
-        };
-      },
-      methods: {
-        openHamburgerMenu() {
-          this.isHamburgerOpen = !this.isHamburgerOpen;
-        },
-      },
-    });
-  </script>  
+
+<script>src="base.js"</script>
+
 </body>
 </html>
