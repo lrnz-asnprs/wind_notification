@@ -28,11 +28,11 @@
       
         <div class="navbar-menu" id="nav-links" >
           <div class="navbar-start">
-            <a class="navbar-item" href="{{ url_for('main.index') }}">
+            <a class="navbar-item" href="{{ url_for('index') }}">
               Home
             </a>
       
-            <a class="navbar-item" href="{{ url_for('main.howto') }}">
+            <a class="navbar-item" href="{{ url_for('howto') }}">
               How does it work?
             </a>
       
@@ -59,10 +59,10 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-primary" href="{{ url_for('auth.signup') }}" style="background-color: #ED7458;">
+                <a class="button is-primary" href="{{ url_for('signup') }}" style="background-color: #ED7458;">
                   <strong>Sign up</strong>
                 </a>
-                <a class="button is-light" href="{{ url_for('auth.unsubscribe') }}">
+                <a class="button is-light" href="{{ url_for('unsubscribe') }}">
                    Unsubscribe
                 </a>
               </div>

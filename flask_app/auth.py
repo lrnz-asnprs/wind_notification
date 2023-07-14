@@ -5,12 +5,13 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User
 from flask_login import login_user, logout_user, login_required, current_user
-from __init__ import db
+from main import app
+from flask_sqlalchemy import SQLAlchemy
 
 
-auth = Blueprint('auth', __name__) # create a Blueprint object that we name 'auth'
+db = SQLAlchemy()
 
-@auth.route('/unsubscribe', methods=['GET', 'POST']) # define login page path
+@app.route('/unsubscribe', methods=['GET', 'POST']) # define login page path
 def unsubscribe(): # define login page fucntion
     if request.method=='GET': # if the request is a GET we return the login page
         return render_template('unsubscribe.html')
@@ -23,16 +24,16 @@ def unsubscribe(): # define login page fucntion
         # take the user-supplied password, hash it, and compare it to the hashed password in the database
         if not user:
             flash('This email doesn\'t exist')
-            return redirect(url_for('auth.signup'))
+            return redirect(url_for('signup'))
 
         # if the above check passes, then we know the user has an email, delete it from the db now
         db.session.delete(user)
         db.session.commit()
 
-        return redirect(url_for('main.unsubscribed'))
+        return redirect(url_for('unsubscribed'))
     
 
-@auth.route('/signup', methods=['GET', 'POST'])# we define the sign up path
+@app.route('/signup', methods=['GET', 'POST'])# we define the sign up path
 def signup(): # define the sign up function
     if request.method=='GET': # If the request is GET we return the sign up page and forms
         return render_template('signup.html')
@@ -42,13 +43,13 @@ def signup(): # define the sign up function
         user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
         if user: # if a user is found, we want to redirect back to signup page so user can try again
             flash('Email address already exists')
-            return redirect(url_for('auth.signup'))
+            return redirect(url_for('signup'))
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
         new_user = User(email=email, name=name) #
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('main.profile'))
+        return redirect(url_for('signup_success'))
 
 
 """

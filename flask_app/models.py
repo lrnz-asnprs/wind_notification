@@ -1,5 +1,9 @@
 from flask_login import UserMixin
-from __init__ import db
+from flask_sqlalchemy import SQLAlchemy
+
+# from __init__ import db
+db = SQLAlchemy()
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
