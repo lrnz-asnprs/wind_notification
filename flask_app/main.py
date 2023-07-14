@@ -11,7 +11,6 @@ from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User
 from models import db
-# from __init__ import create_app
 from socket import gethostname
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
