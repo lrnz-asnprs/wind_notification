@@ -122,3 +122,6 @@
 2023-10-19 20:17:03,859 - __main__ - INFO - Email sent. For forecast of average windspeed of 12.58 m/s from 17:00 to 20:00 on Thursday.
 2023-10-19 20:17:05,499 - __main__ - INFO - Email sent. For forecast of average windspeed of 14.08 m/s from 7:00 to 10:00 on Friday.
 2023-10-19 20:17:07,162 - __main__ - INFO - Email sent. For forecast of average windspeed of 9.25 m/s from 7:00 to 10:00 on Saturday.
+2023-10-20 20:16:15,063 - __main__ - INFO - Email sent. For forecast of average windspeed of 17.17 m/s from 17:00 to 20:00 on Friday.
+2023-10-20 20:16:15,946 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.25 m/s from 7:00 to 10:00 on Saturday.
+2023-10-20 20:16:16,676 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.33 m/s from 13:00 to 16:00 on Sunday.
