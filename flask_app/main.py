@@ -12,7 +12,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from models import User
 from models import db
 from socket import gethostname
-from flask_sqlalchemy import SQLAlchemy
+import psycopg2
 from flask_login import LoginManager
 from models import User
 
@@ -21,14 +21,16 @@ from models import User
 app = Flask(__name__)
 auth = Blueprint('auth', __name__) # create a Blueprint object that we name 'auth'
 
-def create_app():
-    # app = Flask(__name__) # creates the Flask instance, __name__ is the name of the current Python module
-    app.config['SECRET_KEY'] = 'secret-key-goes-here' # it is used by Flask and extensions to keep data safe
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite' #it is the path where the SQLite database file will be saved
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # deactivate Flask-SQLAlchemy track modifications
-    db.init_app(app)
-    db.app = app
-    db.create_all()
+def create_db():
+    app.config['SECRET_KEY'] = 'secret-key-goes-here'
+    render_db_host = "dpg-cioktklph6elhbo8gi6g-a"  # Replace with the actual environment variable name for Render's PostgreSQL host
+    render_db_port = "5432"  # Replace with the actual environment variable name for Render's PostgreSQL port
+    render_db_name = "windy_notifications_db"  # Replace with the actual environment variable name for Render's PostgreSQL database name
+    render_db_user = "windy_notifications_db_user"  # Replace with the actual environment variable name for Render's PostgreSQL username
+    render_db_password = "Yaazyj16ZHRmAaCWR9FPebsL4KEzRQZQ"  # Replace with the actual environment variable name for Render's PostgreSQL password
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = f"postgres://windy_notifications_db_user:Yaazyj16ZHRmAaCWR9FPebsL4KEzRQZQ@dpg-cioktklph6elhbo8gi6g-a/windy_notifications_db"
+    
 
     # The login manager contains the code that lets your application and Flask-Login work together
     login_manager = LoginManager() # Create a Login Manager instance
@@ -45,7 +47,8 @@ def create_app():
     # blueprint for non-auth parts of app
     # app.register_blueprint(main_blueprint)
 
-# app.create_app(app)
+with app.app_context():
+    create_db() # create the SQLite database
 
 @app.route('/') # home page that return 'index'
 def index():
@@ -112,7 +115,7 @@ def signup(): # define the sign up function
 
 if __name__ == '__main__':
     with app.app_context():
-        create_app() # create the SQLite database
+        create_db() # create the SQLite database
     app.run(debug=False) # debug = True if you want to run the flask app on debug mode
 
 
