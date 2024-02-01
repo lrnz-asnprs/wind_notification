@@ -293,3 +293,6 @@
 2024-01-31 20:15:43,902 - __main__ - INFO - Email sent. For forecast of average windspeed of 10.00 m/s from 14:00 to 17:00 on Wednesday.
 2024-01-31 20:15:44,658 - __main__ - INFO - Email sent. For forecast of average windspeed of 11.17 m/s from 7:00 to 10:00 on Thursday.
 2024-01-31 20:15:45,445 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.42 m/s from 8:00 to 11:00 on Friday.
+2024-02-01 20:15:50,003 - __main__ - INFO - Email sent. For forecast of average windspeed of 13.33 m/s from 14:00 to 17:00 on Thursday.
+2024-02-01 20:15:50,518 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.58 m/s from 10:00 to 13:00 on Friday.
+2024-02-01 20:15:51,062 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.17 m/s from 9:00 to 12:00 on Saturday.
