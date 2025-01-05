@@ -458,3 +458,6 @@
 2025-01-02 20:20:36,547 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.75 m/s from 7:00 to 10:00 on Friday.
 2025-01-03 20:20:30,703 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.33 m/s from 14:00 to 17:00 on Friday.
 2025-01-04 20:19:21,887 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.33 m/s from 16:00 to 19:00 on Sunday.
+2025-01-05 20:19:41,999 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.08 m/s from 16:00 to 19:00 on Sunday.
+2025-01-05 20:19:42,749 - __main__ - INFO - Email sent. For forecast of average windspeed of 8.17 m/s from 17:00 to 20:00 on Monday.
+2025-01-05 20:19:43,659 - __main__ - INFO - Email sent. For forecast of average windspeed of 10.08 m/s from 7:00 to 10:00 on Tuesday.
